@@ -1,5 +1,5 @@
 # Stage 1 - Create yarn install skeleton layer
-FROM node:14-buster AS packages
+FROM registry.access.redhat.com/ubi8/nodejs-16:latest AS packages
 
 WORKDIR /app
 COPY package.json yarn.lock ./
@@ -10,7 +10,7 @@ COPY packages packages
 RUN find packages \! -name "package.json" -mindepth 2 -maxdepth 2 -print | xargs rm -rf
 
 # Stage 2 - Install dependencies and build packages
-FROM node:14-buster AS build
+FROM registry.access.redhat.com/ubi8/nodejs-16:latest AS build
 
 WORKDIR /app
 COPY --from=packages /app .
@@ -23,7 +23,7 @@ RUN yarn tsc
 RUN yarn --cwd packages/backend backstage-cli backend:bundle --build-dependencies
 
 # Stage 3 - Build the actual backend image and install production dependencies
-FROM node:14-buster
+FROM registry.access.redhat.com/ubi8/nodejs-16:latest
 
 WORKDIR /app
 
