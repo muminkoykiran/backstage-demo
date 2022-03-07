@@ -6,7 +6,7 @@ COPY package.json yarn.lock ./
 
 COPY packages packages
 # COPY plugins plugins
-
+USER root
 RUN find packages \! -name "package.json" -mindepth 2 -maxdepth 2 -print | xargs rm -rf
 
 # Stage 2 - Install dependencies and build packages
