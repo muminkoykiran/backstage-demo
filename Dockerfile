@@ -14,7 +14,7 @@ FROM registry.access.redhat.com/ubi8/nodejs-14:latest AS build
 
 WORKDIR /app
 COPY --from=packages /app .
-
+USER root
 RUN yarn install --network-timeout 600000 && rm -rf "$(yarn cache dir)"
 
 COPY . .
@@ -26,7 +26,7 @@ RUN yarn --cwd packages/backend backstage-cli backend:bundle --build-dependencie
 FROM registry.access.redhat.com/ubi8/nodejs-14:latest
 
 WORKDIR /app
-
+USER root
 # Copy from build stage
 COPY --from=build /app/yarn.lock /app/package.json /app/packages/backend/dist/skeleton.tar.gz ./
 RUN tar xzf skeleton.tar.gz && rm skeleton.tar.gz
