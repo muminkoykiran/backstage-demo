@@ -54,4 +54,10 @@ ENV APP_CONFIG_app_baseUrl "https://demo.backstage.io"
 ENV APP_CONFIG_backend_baseUrl "https://demo.backstage.io"
 ENV APP_CONFIG_auth_environment "production"
 
+USER root
+RUN chgrp -R /app \
+&& chmod -R g=u /app
+
+USER 1001
+
 CMD ["node", "packages/backend", "--config", "app-config.yaml", "--config", "app-config.heroku.yaml"]
