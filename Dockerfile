@@ -55,7 +55,7 @@ ENV APP_CONFIG_backend_baseUrl "https://demo.backstage.io"
 ENV APP_CONFIG_auth_environment "production"
 
 USER root
-RUN chgrp -R /app \
+RUN chgrp -R 0 /app \
 && chmod -R g=u /app
 
 USER 1001
