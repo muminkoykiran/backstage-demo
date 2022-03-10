@@ -60,4 +60,4 @@ RUN chgrp -R 0 /app \
 
 USER 1001
 
-CMD ["node", "packages/backend", "--config", "app-config.yaml"]
+CMD ["node", "packages/backend", "--config", "app-config.yaml", "--config", "app-config.heroku.yaml"]
